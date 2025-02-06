@@ -1,7 +1,8 @@
-from typing import Dict
+from typing import Dict, List
 from .calculator_2 import Calculator2
 from pytest import raises
 from src.drivers.numpy_hanlder import NumpyHandler
+from src.drivers.interfaces.driver_handler_interface import DriverHandlerInterface
 
 class MockRequest:
   def __init__(self, body: Dict) -> None:
@@ -9,7 +10,25 @@ class MockRequest:
 
 mock_driver = NumpyHandler()
 
+class MockDriverHandler(DriverHandlerInterface):
+  def standard_derivation(self, numbers: List[float]) -> float:
+    return 3
+
+
 def test_calculate():
+  mock_request = MockRequest({"numbers": [2.12, 4.62, 1.32]})
+  calculator_2 = Calculator2(driver_handler=MockDriverHandler())
+  response =calculator_2.calculate(mock_request)
+
+  # Response format
+  assert isinstance(response, dict)
+
+  # Response value
+  assert response["data"]["result"] == 0.3333333333333333
+  assert response["data"]["Calculator"] == 2
+
+
+def test_calculate_integration():
   mock_request = MockRequest({"numbers": [2.12, 4.62, 1.32]})
   calculator_2 = Calculator2(driver_handler=mock_driver)
   response =calculator_2.calculate(mock_request)

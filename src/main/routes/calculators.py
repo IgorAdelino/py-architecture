@@ -1,19 +1,18 @@
 from flask import Blueprint, jsonify, request
-from src.calculators.calculator_1 import Calculator1
-from src.calculators.calculator_2 import Calculator2
-from src.drivers.numpy_hanlder import NumpyHandler
+from src.main.factories.calculator_2_factory import calculator_2_factory
+from src.main.factories.calculator_1_factory import calculator_1_factory
 
 
 calc_route_bp = Blueprint("calc_routes", __name__)
 
 @calc_route_bp.route("/calculator/1", methods=["POST"])
 def calculator_1():
-  calc = Calculator1()
-  response = calc.calculate(request)
+  calculator = calculator_1_factory()
+  response = calculator.calculate(request)
   return jsonify(response), 200
 
 @calc_route_bp.route("/calculator/2", methods=["POST"])
 def calculator_2():
-  calc = Calculator2(NumpyHandler())
-  response = calc.calculate(request)
+  calculator = calculator_2_factory()
+  response = calculator.calculate(request)
   return jsonify(response), 200
