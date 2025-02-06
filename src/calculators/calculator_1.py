@@ -33,10 +33,10 @@ class Calculator1:
     second_part = (first_part / 5) + 1
     return second_part
   
-  def __format_response(self, calc_result: float) -> Dict:
+  def __format_response(self, calculated_number: float) -> Dict:
     return {
       "data": {
         "Calculator": 1,
-        "result": calc_result
+        "result": calculated_number
       }
     }

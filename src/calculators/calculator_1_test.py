@@ -13,7 +13,6 @@ def test_calculate():
 
   response = calculator1.calculate(mock_request)
   
-  print(response)
   # Response format
   assert "data" in response
   assert "Calculator" in response['data']
