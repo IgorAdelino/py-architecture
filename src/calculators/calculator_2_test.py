@@ -1,7 +1,7 @@
 from typing import Dict, List
 from .calculator_2 import Calculator2
 from pytest import raises
-from src.drivers.numpy_hanlder import NumpyHandler
+from src.drivers.numpy_handler import NumpyHandler
 from src.drivers.interfaces.driver_handler_interface import DriverHandlerInterface
 
 class MockRequest:
@@ -13,6 +13,9 @@ mock_driver = NumpyHandler()
 class MockDriverHandler(DriverHandlerInterface):
   def standard_derivation(self, numbers: List[float]) -> float:
     return 3
+  
+  def variance(self, numbers: List[float]) -> float:
+    return 2
 
 
 def test_calculate():
